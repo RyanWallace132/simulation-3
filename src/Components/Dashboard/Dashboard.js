@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Dashboard = (props) => {
+const Dashboard = props => {
     return (
         <nav className='dashboard'>
             <h1>Dashboard</h1>
