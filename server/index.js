@@ -11,6 +11,19 @@ const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
 
 app.use(express.json())
 
+
+app.post('/controller/register', controller.register)
+
+
+
+
+
+
+
+
+
+
+
 massive({
     connectionString: CONNECTION_STRING,
     ssl: {rejectUnauthorized: false},

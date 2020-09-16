@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import Auth from './Components/Auth/Auth'
-import Nav from './Components/Nav/Nav'
 import routes from './routes';
 import {connect} from 'react-redux'
 
