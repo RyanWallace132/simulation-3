@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-const Post = props => {
-    return (
+class Post extends Component{
+    render(){
+        return(
         <nav className='post'>
             <h1>Post</h1>
         </nav>
-    )
+        )
+    }
+    
 }
 
 export default Post

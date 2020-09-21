@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {loginUser} from '../../ducks/reducer'
 import axios from 'axios'
+
+
 
 
 
@@ -16,16 +18,17 @@ class Auth extends Component {
 
     handleInput = (e) => {
         this.setState({
-        [e.target.name]: e.target.value,
+          [e.target.name]: e.target.value,
         })
-    }
+      }
+    
 
     handleRegister = () => {
-        const {email, password} = this.state
+        const {username, password} = this.state
         axios
-            .post('/auth/register', {email, password})
+            .post('/api/auth/register', {username, password})
             .then((res) => {
-                this.props.loginUser(res.data)
+                // this.props.register(res.data)
                 this.props.history.push('/dashboard')
             })
             .catch((err) => {
@@ -33,31 +36,31 @@ class Auth extends Component {
             })
     }
 
-    handleLogin = () => {
-        const {email, password} = this.state
+    handleLogin = (e) => {
+        const { username, password } = this.state
         axios
-            .post('/auth/login', {email, password})
-            .then((res) => {
-                this.props.loginUser(res.data)
-                this.props.history.push('/dashboard')
-            })
-            .catch((err) => {
-                alert(err.message)
-            })
-    }
+          .post('/api/auth/login', { username, password })
+          .then((res) => {
+            // this.props.loginUser(res.data)
+            this.props.history.push('/dashboard')
+          })
+          .catch((err) => {
+            alert(err.message)
+          })
+      }
 
    render(){
        return(
            <div className="auth-container">
                <div>
-                   <img className="helo-logo" src="https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/helo_logo.png"></img>
+                   <img className="helo-logo" alt="logo" src="https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/helo_logo.png"/>
                    <h1 className="auth-helo">Helo</h1>
-                   <h2 className="username-password">Username:</h2>
-                   <h2 className="username-password">Password:</h2>
+                   <h2 className="username">Username:</h2>
+                   <h2 className="password">Password:</h2>
                     <input className="auth-text-box-one" placeholder="" name="username" onChange={(e) => {this.handleInput(e)}}/>
-                    <input className="auth-text-box-two" placeholder="" name="password" onChange={(e) => {this.handleInput(e)}}/>
-                    <button className="auth-button1" onClick={()=> {this.handleRegister()}}>Log In</button>
-                    <button className="auth-button2" onClick={()=> {this.handleLogin()}}>Register</button>
+                    <input type="password" className="auth-text-box-two" placeholder="" name="password" onChange={(e) => {this.handleInput(e)}}/>
+                    <button className="auth-button1" onClick={()=> this.handleLogin()}>Log In</button>
+                    <button className="auth-button2" onClick={()=> this.handleRegister()}>Register</button>
                </div>
            </div>
        )
@@ -66,4 +69,4 @@ class Auth extends Component {
 
 
 
-export default Auth
+export default connect(null, {loginUser})(Auth)

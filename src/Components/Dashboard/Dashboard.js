@@ -1,11 +1,13 @@
-import React from 'react'
+import React,{Component} from 'react'
 
-const Dashboard = props => {
-    return (
+class Dashboard extends Component{
+    render(){
+        return(
         <nav className='dashboard'>
             <h1>Dashboard</h1>
         </nav>
-    )
+        )
+        }
 }
 
 export default Dashboard

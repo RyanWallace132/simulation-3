@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 
 
-
-const Nav = (props) => {
-        return (
+class Nav extends Component{
+        render(){
+            return(
         <nav className='nav'>
+            <img src = {this.props.user.profile_picture} alt='profile picture'/>
+            {this.props.username}
             <Link to="/dashboard">
                 <button className='home'>Home</button>
             </Link>
@@ -17,8 +20,9 @@ const Nav = (props) => {
                 <button className='logout'>Logout</button>
             </Link>
         </nav>
-        )
+            )
+        }
     }
+const mapStateToProps = (reduxState) => reduxState
 
-
-export default Nav
+export default connect(mapStateToProps)(Nav)

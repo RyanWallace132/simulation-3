@@ -1,10 +1,10 @@
 require('dotenv').config()
-const axios = require('axios')
-const redux = require('redux')
 const controller = require('./controller')
 const massive = require('massive')
 const express = require('express')
 const app = express()
+const session = require('express-session')
+
 
 const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
 
@@ -12,9 +12,20 @@ const {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET} = process.env
 app.use(express.json())
 
 
-app.post('/controller/register', controller.register)
-
-
+app.use(
+    session({
+        secret: SESSION_SECRET,
+        resave:false,
+        saveUninitialized:true,
+        cookie: {maxAge: 1000 * 60 * 60 * 24 * 365}
+    })
+    )
+    
+    
+    app.post('/api/auth/register', controller.register)
+    app.post('/api/auth/login', controller.login)
+    // app.get('/api/auth/post/', controller.post)
+    
 
 
 
@@ -31,5 +42,8 @@ massive({
     app.set('db', dbInstance)
     console.log("DB is connected")
     app.listen(SERVER_PORT, () =>
-    console.log(`It's working on port ${SERVER_PORT}`) )
+    console.log(`It's working on port ${SERVER_PORT}`) 
+    )
+}).catch((err) => {
+    alert(err.message)
 })
