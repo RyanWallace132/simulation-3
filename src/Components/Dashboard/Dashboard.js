@@ -11,6 +11,7 @@ class Dashboard extends Component{
         super(props);
         this.state = {
             posts: [],
+            title: '',
             search: '',
             userInput: '',
             myPost: true,
@@ -50,8 +51,8 @@ class Dashboard extends Component{
     }
 
     handleClick = () => {
-        const {userInput: content} = this.state
-        axios.post(`/api/posts/${this.props.id}`, {content}).then(
+        const {userInput: content, title} = this.state
+        axios.post(`/api/posts/${this.props.user.id}`, {content, title}).then(
             (res) => {
                 this.setState ({
                     posts: res.data,
@@ -70,6 +71,8 @@ class Dashboard extends Component{
     }
 
     handleDelete = (id) => {
+        console.log('hit')
+        console.log(this.props)
         axios.delete(`/api/posts/${id}`).then((res) => {
             this.setState({
                 posts:res.data
@@ -113,12 +116,13 @@ class Dashboard extends Component{
         })
         return(
             <div>
-                <button className='reset-button' onClick={this.reset}></button>
+                {/* <button className='reset-button' onClick={this.reset}></button> */}
                 <div>
                     <input checked = {this.state.myPost} onChange={() => this.setState({myPosts: !this.state.myPosts},this.getPosts)}type='checkbox'></input>
                 </div>
                 <div>
                     <input type='text' placeholder = 'Add New Post...' name='userInput' onChange={ (e) => {this.handleInput (e)}}/>
+                    <input type='text' placeholder = 'title' name='Add A Title...' onChange={ (e) => {this.handleInput (e)}} ></input>
                     <button onClick={() => {
                         this.handleClick()
                     }}>Post</button>

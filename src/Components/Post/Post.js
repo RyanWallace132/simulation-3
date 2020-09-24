@@ -6,6 +6,7 @@ class Post extends Component{
     constructor(){
         super()
         this.state ={
+            posts: [],
             title: '',
             img: '',
             content:'',
@@ -25,6 +26,7 @@ class Post extends Component{
 
 
     render(){
+        console.log(this.props.post)
         return this.state.isEditing ? (
             <Form
             handleEdit = {this.props.handleEdit}
@@ -35,9 +37,9 @@ class Post extends Component{
         ) : (
 
             <div className='content-row'>
-                <h3>{this.props.post.content}</h3>
+                <h3>{this.props.post.title}</h3>
                 <div>
-                    <p>{this.props.post.title}</p>
+                     <p>{this.props.post.content}</p>
                     <p src={this.props.img}> </p>
                 </div>
                 <button onClick={() => {

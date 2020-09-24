@@ -1,1 +1,2 @@
-DELETE FROM posts WHERE id = $1;
+DELETE FROM posts 
+WHERE id = $1;

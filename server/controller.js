@@ -43,7 +43,7 @@ module.exports = {
         delete existingUser.hash
 
         req.session.user = existingUser
-
+        console.log(req.session.user)
         res.status(200).send(req.session.user)
       },
 
@@ -84,9 +84,8 @@ module.exports = {
       const db = req.app.get('db')
 
       const {id} = req.params
-
+      console.log(req.params)
       const {title, image, content} = req.body
-
       await db.write_post([id, title, image, content])
 
       const posts = await db.get_posts()
@@ -113,8 +112,10 @@ module.exports = {
       const db = req.app.get('db')
       const {id} = req.params
       const{content} = req.body
-      await db.edit_post([content, id])
-      const posts = await getAllPosts(db)
+      console.log(id, content)
+      
+      const posts = await db.edit_post([content, id])
+      
       res.status(200).send(posts)
     },
 
