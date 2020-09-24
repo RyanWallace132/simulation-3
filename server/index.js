@@ -24,8 +24,11 @@ app.use(
     
     app.post('/api/auth/register', controller.register)
     app.post('/api/auth/login', controller.login)
-    // app.get('/api/auth/post/', controller.post)
-    
+    app.get('/api/posts', controller.getPosts)
+    app.post('/api/posts', controller.writePost)
+    app.delete('/api/post/:id', controller.deletePost)
+    app.get('/api/post/:id', controller.getPostById)
+    app.put('/api/posts/:id', controller.editPost)
 
 
 
